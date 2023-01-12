@@ -1,0 +1,49 @@
+﻿@model HollywoodNoticias.ProjetoMVC.Models.Entities.LoginModel
+
+@{
+    Layout = "_LayoutDeslogada";
+    ViewData["Title"] = "Create";
+}
+
+@if(TempData["MensagemErro"] != null){
+    <div class="alert alert-danger d-flex align-items-center" role="alert">
+        @TempData["MensagemErro"]
+    </div>
+}
+
+
+<h1>Login</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-controller="Login" asp-action="Entrar" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Login" class="control-label"></label>
+                <input asp-for="Login" class="form-control" />
+                <span asp-validation-for="Login" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Senha" class="control-label"></label>
+                <input asp-for="Senha" type="password" class="form-control" />
+                <span asp-validation-for="Senha" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-3">
+                <input type="submit" value="Entrar" class="btn btn-primary" />
+            </div>
+            <div class="form-group mt-3">
+                <p class="text-primary">Não tem login? Cadastre-se</p>
+                <a class="btn btn-warning btn-block" asp-controller="Users" asp-action="Create">Cadastrar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
