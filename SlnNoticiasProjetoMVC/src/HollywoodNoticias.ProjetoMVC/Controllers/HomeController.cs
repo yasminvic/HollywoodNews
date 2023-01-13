@@ -9,15 +9,17 @@ namespace HollywoodNoticias.ProjetoMVC.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ContextoDatabase _contexto;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ContextoDatabase contexto)
         {
             _logger = logger;
+            _contexto = contexto;
         }
 
         public IActionResult Index()
         {
-            return View();
+            return View(_contexto.Noticia.Take(2).ToList());
         }
 
         public IActionResult Privacy()

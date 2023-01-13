@@ -1,8 +1,31 @@
-﻿@{
+﻿@model List<HollywoodNoticias.ProjetoMVC.Models.Entities.Noticia>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@*@foreach(var item in Model){
+    <p>@item.Nome</p>
+}
+*@
+
+
+<div>
+<div class="text-center mt-5">
+    <h6 class="display-4">Bem-Vindo(a)</h6>
 </div>
+
+<div class="position-relative w-100 mb-5 mx-auto">
+    <img class="w-25 img-fluid position-absolute start-0" src="~/img/hollywood.png"/>
+    <h1 id="title-home" class="fw-bolder">Hollywood News</h1>
+</div>
+
+<div class="position-absolute w-75 text-center" style="bottom: 3em;">
+    <p class="fs-5">
+        Aqui você encontrá todas as novidades que circulam em Hollywood, desde premiações, séries e filmes do momento até grandes polêmicas !
+    </p>
+</div>
+
+</div>
+
+

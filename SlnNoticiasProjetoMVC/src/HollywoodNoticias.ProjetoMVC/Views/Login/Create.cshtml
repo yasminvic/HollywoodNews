@@ -2,7 +2,7 @@
 
 @{
     Layout = "_LayoutDeslogada";
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Login";
 }
 
 @if(TempData["MensagemErro"] != null){
@@ -11,37 +11,43 @@
     </div>
 }
 
+<div class="container mt-5">
 
-<h1>Login</h1>
-
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-controller="Login" asp-action="Entrar" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Login" class="control-label"></label>
-                <input asp-for="Login" class="form-control" />
-                <span asp-validation-for="Login" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Senha" class="control-label"></label>
-                <input asp-for="Senha" type="password" class="form-control" />
-                <span asp-validation-for="Senha" class="text-danger"></span>
-            </div>
-            <div class="form-group mt-3">
-                <input type="submit" value="Entrar" class="btn btn-primary" />
-            </div>
-            <div class="form-group mt-3">
-                <p class="text-primary">Não tem login? Cadastre-se</p>
-                <a class="btn btn-warning btn-block" asp-controller="Users" asp-action="Create">Cadastrar</a>
-            </div>
-        </form>
+    <div class="row">
+    <div class="col img-login" style="height: 30vw; width: 100vw;">
+        <img class="img-fluid w-75" src="~/img/icone-contato.png" />
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+    <div class="col form-login container">
+        <h1 class="text-center mt-3 login-title fw-bold">Login</h1>
+
+        <hr class="w-75 mx-auto"/>
+        <div class="row">
+            <div class="container w-75">
+                <form asp-controller="Login" asp-action="Entrar" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Login" class="control-label login-title mt-2"></label>
+                        <input asp-for="Login" class="form-control d-block" />
+                        <span asp-validation-for="Login" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Senha" class="control-label login-title mt-2"></label>
+                        <input asp-for="Senha" type="password" class="form-control" />
+                        <span asp-validation-for="Senha" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mt-3">
+                        <input type="submit" value="Entrar" class="btn btn-primary btn-block w-100" />
+                    </div>
+                    <div class="form-group mt-3 float-end">
+                        <p class="text-dark">Não tem login? Cadastre-se</p>
+                        <a class="btn btn-warning float-end" asp-controller="Users" asp-action="Create">Cadastrar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
 </div>
 
 @section Scripts {

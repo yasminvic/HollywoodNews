@@ -2,8 +2,14 @@
     Layout = "_LayoutDeslogada";
 }
 
-<h1>Bem vindo(a) ao Hollywood News</h1>
+
+<div class="position-relative w-100 mt-5">
+    <img class="w-25 img-fluid position-absolute start-0" src="~/img/hollywood.png"/>
+    <h1 id="title-index" class="">Bem-vindo(a) ao Hollywood News</h1>
+    <p id="texto-index" class="fw-semibold fs-5">Fique por dentro das últimas novidades!</p>
+    <a id="btn-index" class="btn btn-primary" asp-controller="Login" asp-action="Create">Entrar</a>
+</div>
 
 
 
-<a class="btn btn-primary" asp-controller="Login" asp-action="Create">Entrar</a>
+

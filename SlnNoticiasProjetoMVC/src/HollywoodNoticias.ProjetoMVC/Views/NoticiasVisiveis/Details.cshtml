@@ -4,45 +4,27 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<div class="">
+
+    <div class=" ">
+        <p class="categoria-title fw-bold fs-5 ">@Model.Categoria.Nome</p>
+        <div class="w-100 d-block p-5 titulos text-white">
+            <h1>@Model.Titulo</h1>
+            <p class="text-noticia">@Model.Descricao</p>
+        </div>
+    </div>
+
+    <div class="container text-center">
+        <img class="w-75 img-fluid" style="margin-top: 17em;" src="@Model.EnderecoImagem"/>
+    </div>
+
+    <div class="mt-3 w-100 container lh-lg">
+        <p style="text-indent: 2em;">@Model.Texto</p>
+    </div>
+
+</div>
+
 
 <div>
-    <h4>Noticia</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Titulo)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Titulo)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Descricao)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Descricao)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Texto)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Texto)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EnderecoImagem)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EnderecoImagem)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Categoria)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Categoria.Id)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-dark" asp-action="Index">Back to List</a>
 </div>

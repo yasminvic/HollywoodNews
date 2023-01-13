@@ -6,52 +6,58 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<div class="container mt-5">
+    <div class="row">
 
-<h4>User</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Nome" class="control-label"></label>
-                <input asp-for="Nome" class="form-control" />
-                <span asp-validation-for="Nome" class="text-danger"></span>
+        <div class="col container mt-5">
+            <img class="w-75 img-fluid" src="~/img/cadastrar.png"/>
+        </div>
+
+        <div class="col form-login">
+            <h1 class="text-center mt-3 login-title">Cadastrar</h1>
+
+            <hr class="w-75 mx-auto"/>
+            <div class="row">
+                <div class="w-75 container">
+                    <form asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group mt-2">
+                            <label asp-for="Nome" class="control-label login-title"></label>
+                            <input  asp-for="Nome" class="form-control" />
+                            <span asp-validation-for="Nome" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mt-2">
+                            <label asp-for="Email" class="control-label login-title"></label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mt-2">
+                            <label asp-for="Login" class="control-label login-title"></label>
+                            <input asp-for="Login" class="form-control" />
+                            <span asp-validation-for="Login" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mt-2">
+                            <label asp-for="Senha" class="control-label login-title"></label>
+                            <input asp-for="Senha" type="password" class="form-control" />
+                            <span asp-validation-for="Senha" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mt-2 ">
+                            <label asp-for="Perfil" class="control-label login-title"></label>
+                            <select asp-for="Perfil" class="form-control">
+                                <option value="0">Selecione</option>
+                                <option value="@PerfilEnum.Admin">Administrador</option>
+                                <option value="@PerfilEnum.Padrao">Padrão</option>
+                            </select>
+                            <span asp-validation-for="Perfil" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mt-4 btn-block mb-3">
+                            <input type="submit" value="Cadastrar" class="btn btn-primary btn-block w-100" />
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Login" class="control-label"></label>
-                <input asp-for="Login" class="form-control" />
-                <span asp-validation-for="Login" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Senha" class="control-label"></label>
-                <input asp-for="Senha" type="password" class="form-control" />
-                <span asp-validation-for="Senha" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Perfil" class="control-label"></label>
-                <select asp-for="Perfil" class="form-control">
-                    <option value="0">Selecione</option>
-                    <option value="@PerfilEnum.Admin">Administrador</option>
-                    <option value="@PerfilEnum.Padrao">Padrão</option>
-                </select>
-                <span asp-validation-for="Perfil" class="text-danger"></span>
-            </div>
-            <div class="form-group mt-3">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
