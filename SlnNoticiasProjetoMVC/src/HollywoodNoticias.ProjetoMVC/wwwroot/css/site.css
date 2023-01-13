@@ -60,11 +60,15 @@ body {
 
 #title-home {
     position: absolute;
-    right: 10em;
-    top: 3em;
+    right: 3em;
+    top: 2em;
 }
 
-#texto-index{
+#title-div{
+    float: left;
+}
+
+#texto-index {
     position: absolute;
     right: 17em;
     top: 10em;
@@ -96,6 +100,90 @@ body {
 .login-title {
     color: #351868;
 }
+
+#destaque{
+    flex-wrap: wrap;
+    clear:both;
+}
+
+#item-1 p, #item-2 p{
+    padding: 1em;
+    color: #fff;
+}
+
+#item-1 figcaption, #item-2 figcaption{
+    position: absolute;
+    top: 0%;
+}
+
+#item-1 small, #item-2 small{
+    display: none;
+}
+
+#item-3 p, #item-4 p, #item-5 p, #item-6 p, #item-7 p {
+    padding: 1em;
+    color: #000;
+}
+
+#item-3 figcaption, #item-4 figcaption, #item-5 figcaption, #item-6 figcaption, #item-7 figcaption{
+    width: 13.3vw;
+    flex-wrap: wrap
+}
+
+#item-1 p:hover, #item-2 p:hover {
+    opacity: .7;
+}
+
+.img-destaque {
+    width: 100%;
+}
+
+.item-destaque {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.item-destaque img{
+    transition: .5s all ease-out;
+}
+
+.item-destaque:hover img{
+    transform: scale(1.07);
+}
+
+.img-1 {
+    height: 20em;
+    width: 30em;
+}
+
+.img-2 {
+    height: 20em;
+    width: 30em;
+    flex-grow: 1;
+}
+
+.img-3, .img-4, .img-5, .img-6, .img-7 {
+    margin-left: auto;
+    margin-right: auto;
+    width: 10em;
+    height: 7em;
+}
+
+
+/*
+figcaption  {
+    display: none;
+}
+*/
+
+
+#figcaption-3, #figcaption-4, #figcaption-5, #figcaption-6, #figcaption-7{
+    font-size: 10pt;
+}
+
+
 
 /*
 .img-login{

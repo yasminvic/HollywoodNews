@@ -1,5 +1,6 @@
 ﻿using HollywoodNoticias.ProjetoMVC.Filters;
 using HollywoodNoticias.ProjetoMVC.Models;
+using HollywoodNoticias.ProjetoMVC.Models.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -19,7 +20,8 @@ namespace HollywoodNoticias.ProjetoMVC.Controllers
 
         public IActionResult Index()
         {
-            return View(_contexto.Noticia.Take(2).ToList());
+            var ultimosRegistros = _contexto.Noticia.OrderByDescending(n => n.Id).Take(7).ToList();
+            return View(ultimosRegistros);
         }
 
         public IActionResult Privacy()

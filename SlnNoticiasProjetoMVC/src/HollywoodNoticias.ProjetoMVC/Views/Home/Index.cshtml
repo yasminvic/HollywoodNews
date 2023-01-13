@@ -4,27 +4,51 @@
     ViewData["Title"] = "Home Page";
 }
 
-@*@foreach(var item in Model){
-    <p>@item.Nome</p>
+@{
+    var count = 0;
 }
-*@
 
 
-<div>
-<div class="text-center mt-5">
-    <h6 class="display-4">Bem-Vindo(a)</h6>
-</div>
 
-<div class="position-relative w-100 mb-5 mx-auto">
-    <img class="w-25 img-fluid position-absolute start-0" src="~/img/hollywood.png"/>
-    <h1 id="title-home" class="fw-bolder">Hollywood News</h1>
-</div>
 
-<div class="position-absolute w-75 text-center" style="bottom: 3em;">
-    <p class="fs-5">
+
+<div class="container">
+
+    <div id="title-div" class="position-relative w-75 mb-5 mx-auto ">
+        <img class="w-25 img-fluid" src="~/img/hollywood.png"/>
+        <h1 id="title-home" class="fw-bolder display-4">Hollywood News</h1>
+    </div>
+
+    <div class="d-flex mx-auto container align-center" id="destaque">
+    @foreach (var item in Model)
+    {
+        count++;
+                <a class="text-decoration-none" asp-controller="NoticiasVisiveis" asp-action="Details" asp-route-id="@item.Id">
+        <div id="item-@count" class="item-destaque mx-auto">
+                <figure class="position-relative container" style="box-sizing: border-box;">
+                <img class="img-fluid img-@count img-destaque" src="@item.EnderecoImagem">
+                <figcaption class="">
+                            @*<small class="categoria-title fw-bolder">@item.Categoria.Nome</small>*@
+                    <p id="figcaption-@count" class="">@item.Titulo</p>
+                </figcaption>
+            </figure>
+        </div>
+        </a>
+    }
+    </div>
+
+
+
+<div class="w-75 text-center container mt-5 mb-5" style="bottom: 3em;">
+    <p class="fs-4">
         Aqui você encontrá todas as novidades que circulam em Hollywood, desde premiações, séries e filmes do momento até grandes polêmicas !
     </p>
 </div>
+
+@*<div class="input-group flex-nowrap">
+  <span class="input-group-text" id="addon-wrapping">News Letter</span>
+  <input type="text" class="form-control" placeholder="email@gmail.com" aria-label="Username" aria-describedby="addon-wrapping">
+</div>*@
 
 </div>
 
