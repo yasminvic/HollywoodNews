@@ -1,42 +1,42 @@
-﻿@model HollywoodNoticias.ProjetoMVC.Models.Entities.Noticia
+﻿@model HollywoodNoticias.Domain.DTO.NoticiaDTO
 
 @{
     ViewData["Title"] = "Details";
 }
 
 <div class="">
-    <h4 class="mt-5">Título: @Model.Titulo</h4>
+    <h4 class="mt-5">Título: @Model.titulo</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2 mt-3">
-            @Html.DisplayNameFor(model => model.Descricao)
+            @Html.DisplayNameFor(model => model.descricao)
         </dt>
         <dd class = "col-sm-10 mt-3">
-            @Html.DisplayFor(model => model.Descricao)
+            @Html.DisplayFor(model => model.descricao)
         </dd>
         <dt class = "col-sm-2 mt-3">
-            @Html.DisplayNameFor(model => model.EnderecoImagem)
+            @Html.DisplayNameFor(model => model.enderecoImagem)
         </dt>
         <dd class = "col-sm-10 mt-3">
-            <img class="w-50 img-fluid" src="@Html.DisplayFor(model => model.EnderecoImagem)"/>
+            <img class="w-50 img-fluid" src="@Html.DisplayFor(model => model.enderecoImagem)"/>
             
         </dd>
         <dt class = "col-sm-2 mt-3">
-            @Html.DisplayNameFor(model => model.Texto)
+            @Html.DisplayNameFor(model => model.texto)
         </dt>
         <dd class = "col-sm-10 mt-3">
-            @Html.DisplayFor(model => model.Texto)
+            @Html.DisplayFor(model => model.texto)
         </dd>
         
         <dt class = "col-sm-2 mt-3">
-            @Html.DisplayNameFor(model => model.Categoria)
+            @Html.DisplayNameFor(model => model.categoria)
         </dt>
         <dd class = "col-sm-10 mt-3">
-            @Html.DisplayFor(model => model.Categoria.Nome)
+            @Html.DisplayFor(model => model.categoria.nome)
         </dd>
     </dl>
 </div>
 <div class="mt-5">
-    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a class="btn btn-dark" asp-action="Index">Back to List</a>
+    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model?.id">Editar</a> |
+    <a class="btn btn-dark" asp-action="Index">Voltar para Lista</a>
 </div>

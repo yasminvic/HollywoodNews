@@ -1,9 +1,10 @@
+using HollywoodNoticias.Domain.Contracts.IRepositories;
+using HollywoodNoticias.Infra.Data.Repository.Repositories;
 using HollywoodNoticias.ProjetoMVC.Helper;
-using HollywoodNoticias.ProjetoMVC.Models;
-using HollywoodNoticias.ProjetoMVC.Repository;
-using HollywoodNoticias.ProjetoMVC.Service.Implements;
-using HollywoodNoticias.ProjetoMVC.Service.Interface;
+using HollywoodNoticias.Application.Service.SQLServerServices;
+using HollywoodNoticias.Domain.Contracts.IServices;
 using Microsoft.EntityFrameworkCore;
+using HollywoodNoticias.Infra.Data.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,10 +12,17 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<ContextoDatabase>
-    (options => options.UseSqlServer("Server=LAPTOP-EBG33A6E\\SQLEXPRESS;Database=HollywoodNews;User Id=sa;Password=gibi2016;TrustServerCertificate=True;"));
+    (options => options.UseSqlServer("Server=LAPTOP-EBG33A6E\\SQLEXPRESS;Database=HollywoodNews;User Id=sa;Password=gibi2016;TrustServerCertificate=True; MultipleActiveResultSets=True"));
 
+//Services
 builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<UserRepository, UserRepository>();
+builder.Services.AddScoped<ICategoriaService, CategoriaService>();
+builder.Services.AddScoped<INoticiaService, NoticiaService>();
+
+//Repositories
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ICategoriaRepository, CategoriaRepository>();
+builder.Services.AddScoped<INoticiaRepository, NoticiaRepository>();
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<ISessao, Sessao>();

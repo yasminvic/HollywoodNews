@@ -23,9 +23,6 @@ body {
     margin-bottom: 60px;
     overflow-x: hidden;
     background-color: #c6a9fd;
-    /*/#a472ff;*/
-    /*#ffe289;*/
-    /*#ffd861;*/
 }
 
 .menu {
@@ -172,11 +169,6 @@ body {
 }
 
 
-/*
-figcaption  {
-    display: none;
-}
-*/
 
 
 #figcaption-3, #figcaption-4, #figcaption-5, #figcaption-6, #figcaption-7{
@@ -185,17 +177,3 @@ figcaption  {
 
 
 
-/*
-.img-login{
-    width: 500vw;
-}*/
-/*.circulo::after {
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    background-color: red;
-}*/
-/*#linha-vertical{
-    display: flex;
-    flex-direction: column;
-}*/

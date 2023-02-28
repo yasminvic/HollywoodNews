@@ -1,4 +1,4 @@
-﻿using HollywoodNoticias.ProjetoMVC.Models.Entities;
+﻿using HollywoodNoticias.Domain.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.IdentityModel.Tokens;
@@ -22,7 +22,7 @@ namespace HollywoodNoticias.ProjetoMVC.Filters
             else
             {
                 //convertendo json em objeto
-                User usuario = JsonConvert.DeserializeObject<User>(sessao);
+                UserDTO usuario = JsonConvert.DeserializeObject<UserDTO>(sessao);
 
                 //se por acaso der algum problema na conversao
                 if(usuario == null)

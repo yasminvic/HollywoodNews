@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using HollywoodNoticias.ProjetoMVC.Models;
-using HollywoodNoticias.ProjetoMVC.Models.Entities;
-using HollywoodNoticias.ProjetoMVC.Service.Interface;
+using HollywoodNoticias.Domain.DTO;
+using HollywoodNoticias.Domain.Contracts.IServices;
 using HollywoodNoticias.ProjetoMVC.Helper;
 using HollywoodNoticias.ProjetoMVC.Filters;
 
@@ -30,21 +29,17 @@ namespace HollywoodNoticias.ProjetoMVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(User user)
+        public async Task<IActionResult> Create(UserDTO user)
         {
-            try
+            user.dateCreated = DateTime.Now;
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
-                {
-                    User usuario = _service.Cadastrar(user);
-                    _sessao.CriarSessao(user);
-                }
+                await _service.Save(user);
+                _sessao.CriarSessao(user);
                 return RedirectToAction("Index", "Home");
             }
-            catch
-            {
-                return RedirectToAction("Index", "Login");
-            }
+            return RedirectToAction("Index", "Login");
+
         }
     }
 }

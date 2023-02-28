@@ -6,37 +6,38 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HollywoodNoticias.ProjetoMVC.Models;
-using HollywoodNoticias.ProjetoMVC.Models.Entities;
+using HollywoodNoticias.Domain.DTO;
 using HollywoodNoticias.ProjetoMVC.Filters;
+using HollywoodNoticias.Domain.Contracts.IServices;
 
 namespace HollywoodNoticias.ProjetoMVC.Controllers
 {
     [PaginaRestrita]
     public class CategoriasController : Controller
     {
-        private readonly ContextoDatabase _context;
+        private readonly ICategoriaService _service;
 
-        public CategoriasController(ContextoDatabase context)
+        public CategoriasController(ICategoriaService service)
         {
-            _context = context;
+            _service = service;
         }
 
         // GET: Categorias
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Categoria.ToListAsync());
+              return View(await _service.GetAll());
         }
 
         // GET: Categorias/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
-            if (id == null || _context.Categoria == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var categoria = await _context.Categoria
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var categoria = await _service.GetById(id);
+
             if (categoria == null)
             {
                 return NotFound();
@@ -51,31 +52,28 @@ namespace HollywoodNoticias.ProjetoMVC.Controllers
             return View();
         }
 
-        // POST: Categorias/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nome")] Categoria categoria)
+        public async Task<IActionResult> Create([Bind("id,nome")] CategoriaDTO categoria)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(categoria);
-                await _context.SaveChangesAsync();
+                _service.Save(categoria);
+                TempData["MensagemSucesso"] = "Registro salvo com sucesso!";
                 return RedirectToAction(nameof(Index));
             }
+            TempData["MensagemErro"] = "Erro ao salvar registro!";
             return View(categoria);
         }
 
-        // GET: Categorias/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == null || _context.Categoria == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var categoria = await _context.Categoria.FindAsync(id);
+            var categoria = await _service.GetById(id);
             if (categoria == null)
             {
                 return NotFound();
@@ -83,81 +81,52 @@ namespace HollywoodNoticias.ProjetoMVC.Controllers
             return View(categoria);
         }
 
-        // POST: Categorias/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome")] Categoria categoria)
+        public async Task<IActionResult> Edit(int id, [Bind("id,nome")] CategoriaDTO categoria)
         {
-            if (id != categoria.Id)
+            if (id != categoria.id)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(categoria);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CategoriaExists(categoria.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                _service.Save(categoria);
+                TempData["MensagemSucesso"] = "Registro alterado com sucesso!";
                 return RedirectToAction(nameof(Index));
             }
+            TempData["MensagemErro"] = "Erro ao alterar registro!";
             return View(categoria);
         }
 
-        // GET: Categorias/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        [HttpPost]
+        public async Task<JsonResult> Delete(int? id)
         {
-            if (id == null || _context.Categoria == null)
+            var retDel = new ReturnJsonDelete
             {
-                return NotFound();
-            }
-
-            var categoria = await _context.Categoria
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (categoria == null)
+                status = "Success",
+                code = "200"
+            };
+            try
             {
-                return NotFound();
+                if (await _service.Delete(id ?? 0) <= 0)
+                {
+                    retDel = new ReturnJsonDelete
+                    {
+                        status = "Error",
+                        code = "400"
+                    };
+                }
             }
-
-            return View(categoria);
-        }
-
-        // POST: Categorias/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            if (_context.Categoria == null)
+            catch (Exception ex)
             {
-                return Problem("Entity set 'ContextoDatabase.Categoria'  is null.");
+                retDel = new ReturnJsonDelete
+                {
+                    status = ex.Message,
+                    code = "500"
+                };
             }
-            var categoria = await _context.Categoria.FindAsync(id);
-            if (categoria != null)
-            {
-                _context.Categoria.Remove(categoria);
-            }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool CategoriaExists(int id)
-        {
-          return _context.Categoria.Any(e => e.Id == id);
+            return Json(retDel);
         }
     }
 }

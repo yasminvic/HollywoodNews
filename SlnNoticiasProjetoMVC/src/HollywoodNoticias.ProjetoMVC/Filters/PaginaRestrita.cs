@@ -1,4 +1,5 @@
-﻿using HollywoodNoticias.ProjetoMVC.Models.Entities;
+﻿using HollywoodNoticias.Domain.DTO;
+using HollywoodNoticias.Domain.Enum;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.IdentityModel.Tokens;
@@ -18,7 +19,7 @@ namespace HollywoodNoticias.ProjetoMVC.Filters
             }
             else
             {
-                User usuario = JsonConvert.DeserializeObject<User>(sessao);
+                UserDTO usuario = JsonConvert.DeserializeObject<UserDTO>(sessao);
 
                 if(usuario == null)
                 {
@@ -27,7 +28,7 @@ namespace HollywoodNoticias.ProjetoMVC.Filters
 
                 //ele passou pela verifica de antes, ent tem alguem logado
                 //se usuario logado for do padrao, ent ele vai ser jogado pra home
-                if(usuario.Perfil == Enum.PerfilEnum.Padrao)
+                if(usuario.perfil == PerfilEnum.Padrao)
                 {
                     context.Result = new RedirectToRouteResult(new RouteValueDictionary { { "controller", "Home" }, { "action", "Index"} });
                 }

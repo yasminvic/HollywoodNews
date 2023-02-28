@@ -1,4 +1,4 @@
-﻿using HollywoodNoticias.ProjetoMVC.Models.Entities;
+﻿using HollywoodNoticias.Domain.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
@@ -19,7 +19,7 @@ namespace HollywoodNoticias.ProjetoMVC.ViewComponents
             }
 
             //convertendo json em objeto
-            User usuario = JsonConvert.DeserializeObject<User>(sessao);
+            UserDTO usuario = JsonConvert.DeserializeObject<UserDTO>(sessao);
 
             return View(usuario);
         }

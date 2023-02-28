@@ -1,4 +1,4 @@
-﻿@model IEnumerable<HollywoodNoticias.ProjetoMVC.Models.Entities.Noticia>
+﻿@model IEnumerable<HollywoodNoticias.Domain.DTO.NoticiaDTO>
 
 @{
     ViewData["Title"] = "Index";
@@ -19,13 +19,13 @@
                 Capa
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Titulo)
+                @Html.DisplayNameFor(model => model.titulo)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Descricao)
+                @Html.DisplayNameFor(model => model.descricao)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Categoria)
+                @Html.DisplayNameFor(model => model.categoria)
             </th>
             <th></th>
         </tr>
@@ -34,21 +34,21 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                <img class="w-75" src="@Html.DisplayFor(modelItem => item.EnderecoImagem)">      
+                <img class="w-75" src="@Html.DisplayFor(modelItem => item.enderecoImagem)">      
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Titulo)
+                @Html.DisplayFor(modelItem => item.titulo)
             </td>     
                 <td>
-                    @Html.DisplayFor(modelItem => item.Descricao)
+                    @Html.DisplayFor(modelItem => item.descricao)
                 </td> 
             <td>
-                @Html.DisplayFor(modelItem => item.Categoria.Nome)
+                @Html.DisplayFor(modelItem => item.categoria.nome)
             </td>
             <td>
-                <a class="btn btn-primary mb-2" asp-action="Edit" asp-route-id="@item.Id">Editar</a> 
-                <a class="btn btn-warning mb-2"  asp-action="Details" asp-route-id="@item.Id">Detalhes</a> 
-                <a class="btn btn-danger"  asp-action="Delete" asp-route-id="@item.Id">Deletar</a>
+                <a class="btn btn-primary mb-2" asp-action="Edit" asp-route-id="@item.id">Editar</a> 
+                <a class="btn btn-warning mb-2"  asp-action="Details" asp-route-id="@item.id">Detalhes</a>
+                <a class="btn btn-danger" onclick="deleteRegistro(@item.id, 'Notícias', '/Noticias/Delete')">Deletar</a>
             </td>
         </tr>
 }

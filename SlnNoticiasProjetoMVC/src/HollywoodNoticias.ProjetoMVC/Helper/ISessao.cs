@@ -1,11 +1,11 @@
-﻿using HollywoodNoticias.ProjetoMVC.Models.Entities;
+﻿using HollywoodNoticias.Domain.DTO;
 
 namespace HollywoodNoticias.ProjetoMVC.Helper
 {
     public interface ISessao
     {
-        User BuscarSessao();
-        void CriarSessao(User user);
+        UserDTO BuscarSessao();
+        void CriarSessao(UserDTO user);
         void RemoverSessao();
     }
 }

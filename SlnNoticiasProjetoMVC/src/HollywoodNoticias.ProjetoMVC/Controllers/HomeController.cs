@@ -1,8 +1,9 @@
 ﻿using HollywoodNoticias.ProjetoMVC.Filters;
-using HollywoodNoticias.ProjetoMVC.Models;
-using HollywoodNoticias.ProjetoMVC.Models.Entities;
+using HollywoodNoticias.Domain.DTO;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using HollywoodNoticias.Domain.Contracts.IServices;
+using HollywoodNoticias.ProjetoMVC.Models;
 
 namespace HollywoodNoticias.ProjetoMVC.Controllers
 {
@@ -10,17 +11,30 @@ namespace HollywoodNoticias.ProjetoMVC.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly ContextoDatabase _contexto;
+        private readonly INoticiaService _noticiaService;
 
-        public HomeController(ILogger<HomeController> logger, ContextoDatabase contexto)
+        public HomeController(ILogger<HomeController> logger, INoticiaService service)
         {
             _logger = logger;
-            _contexto = contexto;
+            _noticiaService = service;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var ultimosRegistros = _contexto.Noticia.OrderByDescending(n => n.Id).Take(7).ToList();
+            int size = 7;
+
+            var listall = await _noticiaService.GetAll();
+
+            List<NoticiaDTO> ultimosRegistros = new List<NoticiaDTO>(size);
+
+            if (listall.Count >= 7)
+            {
+                for (int i = listall.Count - 1; i > listall.Count - 8; i--)
+                {
+                    ultimosRegistros.Add(listall[i]);
+                }
+            }
+            
             return View(ultimosRegistros);
         }
 

@@ -1,4 +1,4 @@
-﻿@model HollywoodNoticias.ProjetoMVC.Models.Entities.Noticia
+﻿@model HollywoodNoticias.Domain.DTO.NoticiaDTO
 
 @{
     ViewData["Title"] = "Create";
@@ -13,32 +13,31 @@
         <form asp-controller="Noticias" asp-action="Create" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="CategoriaId" class="control-label mt-2"></label>
-                <select asp-for="CategoriaId" class ="form-control" asp-items="ViewBag.CategoriaId"></select>
+                <label asp-for="categoriaId" class="control-label mt-2"></label>
+                <select asp-for="categoriaId" class ="form-control" asp-items="ViewBag.categoriaId"></select>
             </div>
             <div class="form-group">
-                <label asp-for="Titulo" class="control-label mt-2"></label>
-                <input asp-for="Titulo" class="form-control" />
-                <span asp-validation-for="Titulo" class="text-danger"></span>
+                <label asp-for="titulo" class="control-label mt-2"></label>
+                <input asp-for="titulo" class="form-control" />
+                <span asp-validation-for="titulo" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Descricao" class="control-label mt-2"></label>
-                <textarea asp-for="Descricao" class="form-control"></textarea>
-                <span asp-validation-for="Descricao" class="text-danger"></span>
+                <label asp-for="descricao" class="control-label mt-2"></label>
+                <textarea asp-for="descricao" class="form-control"></textarea>
+                <span asp-validation-for="descricao" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Texto" class="control-label mt-2"></label>
-               @* <textarea id="summernote" asp-for="Texto" name="editordata" class="form-control"></textarea>*@
-                <textarea asp-for="Texto" class="form-control"></textarea>
-                <span asp-validation-for="Texto" class="text-danger"></span>
+                <label asp-for="texto" class="control-label mt-2"></label>
+                <textarea asp-for="texto" class="form-control"></textarea>
+                <span asp-validation-for="texto" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="EnderecoImagem" class="control-label mt-2"></label>
-                <input asp-for="EnderecoImagem" class="form-control" />
-                <span asp-validation-for="EnderecoImagem" class="text-danger"></span>
+                <label asp-for="enderecoImagem" class="control-label mt-2"></label>
+                <input asp-for="enderecoImagem" class="form-control" />
+                <span asp-validation-for="enderecoImagem" class="text-danger"></span>
             </div>
             <div class="form-group mt-3">
-                <input type="submit" value="Create" class="btn btn-primary btn-block w-100" />
+                <input type="submit" value="Adicionar" class="btn btn-primary btn-block w-100" />
             </div>
         </form>
     </div>
@@ -48,7 +47,7 @@
 </div>
 
 <div class="mt-5">
-    <a class="btn btn-dark" asp-action="Index">Back to List</a>
+    <a class="btn btn-dark" asp-action="Index">Voltar para Lista</a>
 </div>
 
 @section Scripts {

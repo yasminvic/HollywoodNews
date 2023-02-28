@@ -5,40 +5,36 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using HollywoodNoticias.ProjetoMVC.Models;
-using HollywoodNoticias.ProjetoMVC.Models.Entities;
+using HollywoodNoticias.Domain.DTO;
 using HollywoodNoticias.ProjetoMVC.Filters;
+using HollywoodNoticias.Domain.Contracts.IServices;
 
 namespace HollywoodNoticias.ProjetoMVC.Controllers
 {
     [PaginaParaUsuarioLogado]
     public class NoticiasVisiveisController : Controller
     {
-        private readonly ContextoDatabase _context;
+        private readonly INoticiaService _service;
 
-        public NoticiasVisiveisController(ContextoDatabase context)
+        public NoticiasVisiveisController(INoticiaService service)
         {
-            _context = context;
+            _service = service;
         }
 
-        // GET: NoticiasVisiveis
         public async Task<IActionResult> Index()
         {
-            var contextoDatabase = _context.Noticia.Include(n => n.Categoria);
-            return View(await contextoDatabase.ToListAsync());
+            return View(await _service.GetAll());
         }
 
-        // GET: NoticiasVisiveis/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
-            if (id == null || _context.Noticia == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var noticia = await _context.Noticia
-                .Include(n => n.Categoria)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var noticia = await _service.GetById(id);
+
             if (noticia == null)
             {
                 return NotFound();

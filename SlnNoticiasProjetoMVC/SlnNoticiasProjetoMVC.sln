@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HollywoodNoticias.ProjetoMVC", "src\HollywoodNoticias.ProjetoMVC\HollywoodNoticias.ProjetoMVC.csproj", "{08FAB73D-0051-448C-9CFB-7F9D4DA172DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HollywoodNoticias.ProjetoMVC", "src\HollywoodNoticias.ProjetoMVC\HollywoodNoticias.ProjetoMVC.csproj", "{08FAB73D-0051-448C-9CFB-7F9D4DA172DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HollywoodNoticias.Domain", "src\HollywoodNoticias.Domain\HollywoodNoticias.Domain.csproj", "{63E90344-FE65-4C0B-AF87-EA71FF13368D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HollywoodNoticias.Infra.Data.Repository", "src\HollywoodNoticias.Infra.Data.Repository\HollywoodNoticias.Infra.Data.Repository.csproj", "{0FB14D23-7C27-4095-AC8E-21D0DC2B418F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HollywoodNoticias.Application.Service", "src\HollywoodNoticias.Application.Service\HollywoodNoticias.Application.Service.csproj", "{BF8080F0-825A-46B9-AB51-B39943F56D0D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{08FAB73D-0051-448C-9CFB-7F9D4DA172DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{08FAB73D-0051-448C-9CFB-7F9D4DA172DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{08FAB73D-0051-448C-9CFB-7F9D4DA172DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63E90344-FE65-4C0B-AF87-EA71FF13368D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63E90344-FE65-4C0B-AF87-EA71FF13368D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63E90344-FE65-4C0B-AF87-EA71FF13368D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63E90344-FE65-4C0B-AF87-EA71FF13368D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FB14D23-7C27-4095-AC8E-21D0DC2B418F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FB14D23-7C27-4095-AC8E-21D0DC2B418F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FB14D23-7C27-4095-AC8E-21D0DC2B418F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FB14D23-7C27-4095-AC8E-21D0DC2B418F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF8080F0-825A-46B9-AB51-B39943F56D0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF8080F0-825A-46B9-AB51-B39943F56D0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF8080F0-825A-46B9-AB51-B39943F56D0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF8080F0-825A-46B9-AB51-B39943F56D0D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

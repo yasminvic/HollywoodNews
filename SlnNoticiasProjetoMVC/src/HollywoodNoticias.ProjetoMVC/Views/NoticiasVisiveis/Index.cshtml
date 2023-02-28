@@ -1,4 +1,4 @@
-﻿@model IEnumerable<HollywoodNoticias.ProjetoMVC.Models.Entities.Noticia>
+﻿@model IEnumerable<HollywoodNoticias.Domain.DTO.NoticiaDTO>
 
 @{
     ViewData["Title"] = "Notícias";
@@ -11,17 +11,17 @@
 <div class="main-content py-5 container position-relative">
 
 @foreach(var item in Model){
-        <a class="text-decoration-none text-dark p-2" asp-action="Details" asp-controller="NoticiasVisiveis" asp-route-id="@item.Id">
+        <a class="text-decoration-none text-dark p-2" asp-action="Details" asp-controller="NoticiasVisiveis" asp-route-id="@item.id">
         <div class="w-75 mb-3 mx-auto card-noticias position-relative" style="max-width: 940px;">
         <div class="row g-0">
             <div class="col-md-4">
-                <img src="@item.EnderecoImagem" class="img-fluid rounded-start w-100" alt="Notícia: @item.Titulo">
+                <img src="@item.enderecoImagem" class="img-fluid rounded-start w-100" alt="Notícia: @item.titulo">
             </div>
             <div class="col-md-8">
                 <div class="card-body ">
-                    <h5 class="card-title">@item.Titulo</h5>
-                    <p class="card-text text-noticia">@item.Descricao</p>
-                       <p class="card-text categoria-title position-absolute bottom-0 end-0 me-2"><small class="fw-bolder">@item.Categoria.Nome</small></p>
+                    <h5 class="card-title">@item.titulo</h5>
+                    <p class="card-text text-noticia">@item.descricao</p>
+                       <p class="card-text categoria-title position-absolute bottom-0 end-0 me-2"><small class="fw-bolder">@item.categoria.nome</small></p>
                 </div>
             </div>
         </div>
@@ -32,3 +32,4 @@
 }
 </div>
 </section>
+

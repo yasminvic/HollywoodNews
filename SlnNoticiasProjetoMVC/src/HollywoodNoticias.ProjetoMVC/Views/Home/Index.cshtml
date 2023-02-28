@@ -1,4 +1,4 @@
-﻿@model List<HollywoodNoticias.ProjetoMVC.Models.Entities.Noticia>
+﻿@model List<HollywoodNoticias.Domain.DTO.NoticiaDTO>
 
 @{
     ViewData["Title"] = "Home Page";
@@ -23,13 +23,13 @@
     @foreach (var item in Model)
     {
         count++;
-                <a class="text-decoration-none" asp-controller="NoticiasVisiveis" asp-action="Details" asp-route-id="@item.Id">
+                <a class="text-decoration-none" asp-controller="NoticiasVisiveis" asp-action="Details" asp-route-id="@item.id">
         <div id="item-@count" class="item-destaque mx-auto">
                 <figure class="position-relative container" style="box-sizing: border-box;">
-                <img class="img-fluid img-@count img-destaque" src="@item.EnderecoImagem">
+                <img class="img-fluid img-@count img-destaque" src="@item.enderecoImagem">
                 <figcaption class="">
                             @*<small class="categoria-title fw-bolder">@item.Categoria.Nome</small>*@
-                    <p id="figcaption-@count" class="">@item.Titulo</p>
+                    <p id="figcaption-@count" class="">@item.titulo</p>
                 </figcaption>
             </figure>
         </div>

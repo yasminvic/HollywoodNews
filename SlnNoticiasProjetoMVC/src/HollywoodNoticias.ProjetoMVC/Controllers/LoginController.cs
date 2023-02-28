@@ -1,7 +1,8 @@
 ﻿using HollywoodNoticias.ProjetoMVC.Helper;
-using HollywoodNoticias.ProjetoMVC.Models.Entities;
-using HollywoodNoticias.ProjetoMVC.Service.Interface;
+using HollywoodNoticias.Domain.Entities;
+using HollywoodNoticias.Domain.Contracts.IServices;
 using Microsoft.AspNetCore.Mvc;
+using HollywoodNoticias.Domain.DTO;
 
 namespace HollywoodNoticias.ProjetoMVC.Controllers
 {
@@ -35,11 +36,11 @@ namespace HollywoodNoticias.ProjetoMVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult Entrar(LoginModel loginModel)
+        public async Task<IActionResult> Entrar(LoginModel loginModel)
         {
             try
             {
-                User user = _service.FindByLogin(loginModel.Login);
+                UserDTO user = await _service.FindByLogin(loginModel.Login);
 
                 if (ModelState.IsValid)
                 {

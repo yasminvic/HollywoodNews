@@ -27,9 +27,49 @@
 
     <footer class="border-top footer text-muted mt-5">
         <div class="container">
-            &copy; 2023 - HollywoodNoticias.ProjetoMVC - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2023 - Hollywood News - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
+
+    <!--Mensagens using Toasts Component-->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="liveToast" class="toast " role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header menu">
+                <img width="20" heigth="15" src="~/img/hollywood.png" class="rounded me-2" alt="Logo">
+                <strong class="me-auto text-white">WishList - <span id="toast-origin"></span></strong>
+                <small class="text-white" id="toast-time">11:00</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body bg-secondary" id="toast-body">
+                Hello, world! This is a toast message.
+            </div>
+        </div>
+    </div>
+
+    <!-- Messages using Modal Component -->
+    <div class="modal fade " id="msgModal" tabindex="-1" aria-labelledby="msgModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content position-relative">
+                <div class="modal-header bg-danger bg-opacity-75">
+                    <h1 class="modal-title fs-5" id="msgModalLabel">
+                        WishList - <span id="modal-origin">
+
+                        </span>
+                    </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div id="modal-body" class="modal-body mb-2">
+                    ...
+                </div>
+                <div class="mb-3 mx-auto">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button id="btnModalCallback" type="button" class="btn btn-primary">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

@@ -5,40 +5,39 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using HollywoodNoticias.ProjetoMVC.Models;
-using HollywoodNoticias.ProjetoMVC.Models.Entities;
+using HollywoodNoticias.Domain.DTO;
 using HollywoodNoticias.ProjetoMVC.Filters;
+using HollywoodNoticias.Domain.Contracts.IServices;
+using HollywoodNoticias.ProjetoMVC.Models;
 
 namespace HollywoodNoticias.ProjetoMVC.Controllers
 {
     [PaginaRestrita]
     public class NoticiasController : Controller
     {
-        private readonly ContextoDatabase _context;
+        private readonly INoticiaService _service;
+        private readonly ICategoriaService _catService;
 
-        public NoticiasController(ContextoDatabase context)
+        public NoticiasController(INoticiaService service, ICategoriaService catService)
         {
-            _context = context;
+            _service = service;
+            _catService = catService;   
         }
 
-        // GET: Noticias
         public async Task<IActionResult> Index()
         {
-            var contextoDatabase = _context.Noticia.Include(n => n.Categoria);
-            return View(await contextoDatabase.ToListAsync());
+            return View(await _service.GetAll());
         }
 
-        // GET: Noticias/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
-            if (id == null || _context.Noticia == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var noticia = await _context.Noticia
-                .Include(n => n.Categoria)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var noticia = await _service.GetById(id);
+
             if (noticia == null)
             {
                 return NotFound();
@@ -47,124 +46,89 @@ namespace HollywoodNoticias.ProjetoMVC.Controllers
             return View(noticia);
         }
 
-        // GET: Noticias/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewData["CategoriaId"] = new SelectList(_context.Categoria, "Id", "Nome");
+            ViewData["categoriaId"] = new SelectList( await _catService.GetAll(), "id", "nome", "Selecione...");
             return View();
         }
 
-        // POST: Noticias/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,CategoriaId,Titulo,Descricao,Texto,EnderecoImagem")] Noticia noticia)
+        public async Task<IActionResult> Create([Bind("id,categoriaId,titulo,descricao,texto,enderecoImagem")] NoticiaDTO noticia)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(noticia);
-                await _context.SaveChangesAsync();
+                await _service.Save(noticia);
+                TempData["MensagemSucesso"] = "Registro salvo com sucesso!";
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoriaId"] = new SelectList(_context.Categoria, "Id", "Nome", noticia.CategoriaId);
+            ViewData["categoriaId"] = new SelectList(await _catService.GetAll(), "id", "nome", "Selecione...");
+            TempData["MensagemErro"] = "Erro ao salvar registro!";
             return View(noticia);
         }
 
-        // GET: Noticias/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == null || _context.Noticia == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var noticia = await _context.Noticia.FindAsync(id);
+            var noticia = await _service.GetById(id);
             if (noticia == null)
             {
                 return NotFound();
             }
-            ViewData["CategoriaId"] = new SelectList(_context.Categoria, "Id", "Nome", noticia.CategoriaId);
+            ViewData["categoriaId"] = new SelectList(await _catService.GetAll(), "id", "nome", "Selecione...");
             return View(noticia);
         }
 
-        // POST: Noticias/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,CategoriaId,Titulo,Descricao,Texto,EnderecoImagem")] Noticia noticia)
+        public async Task<IActionResult> Edit(int id, [Bind("id,categoriaId,titulo,descricao,texto,enderecoImagem")] NoticiaDTO noticia)
         {
-            if (id != noticia.Id)
+            if (id != noticia.id)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(noticia);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!NoticiaExists(noticia.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                await _service.Save(noticia);
+                TempData["MensagemSucesso"] = "Registro alterado com sucesso!";
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoriaId"] = new SelectList(_context.Categoria, "Id", "Nome", noticia.CategoriaId);
+            ViewData["categoriaId"] = new SelectList(await _catService.GetAll(), "id", "nome", "Selecione...");
+            TempData["MensagemErro"] = "Erro ao alterar registro!";
             return View(noticia);
         }
 
-        // GET: Noticias/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        [HttpPost]
+        public async Task<JsonResult> Delete(int? id)
         {
-            if (id == null || _context.Noticia == null)
+            var retDel = new ReturnJsonDelete
             {
-                return NotFound();
-            }
-
-            var noticia = await _context.Noticia
-                .Include(n => n.Categoria)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (noticia == null)
+                status = "Success",
+                code = "200"
+            };
+            try
             {
-                return NotFound();
+                if (await _service.Delete(id ?? 0) <= 0)
+                {
+                    retDel = new ReturnJsonDelete
+                    {
+                        status = "Error",
+                        code = "400"
+                    };
+                }
             }
-
-            return View(noticia);
-        }
-
-        // POST: Noticias/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            if (_context.Noticia == null)
+            catch (Exception ex)
             {
-                return Problem("Entity set 'ContextoDatabase.Noticia'  is null.");
+                retDel = new ReturnJsonDelete
+                {
+                    status = ex.Message,
+                    code = "500"
+                };
             }
-            var noticia = await _context.Noticia.FindAsync(id);
-            if (noticia != null)
-            {
-                _context.Noticia.Remove(noticia);
-            }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool NoticiaExists(int id)
-        {
-          return _context.Noticia.Any(e => e.Id == id);
+            return Json(retDel);
         }
     }
 }

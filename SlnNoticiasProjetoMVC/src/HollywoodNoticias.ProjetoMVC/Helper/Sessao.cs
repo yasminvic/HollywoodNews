@@ -1,4 +1,4 @@
-﻿using HollywoodNoticias.ProjetoMVC.Models.Entities;
+﻿using HollywoodNoticias.Domain.DTO;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 
@@ -13,7 +13,7 @@ namespace HollywoodNoticias.ProjetoMVC.Helper
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public User BuscarSessao()
+        public UserDTO BuscarSessao()
         {
             string sessao = _httpContextAccessor.HttpContext.Session.GetString("sessaoUsuario");
 
@@ -22,10 +22,10 @@ namespace HollywoodNoticias.ProjetoMVC.Helper
                 return null;
             }
 
-            return JsonConvert.DeserializeObject<User>(sessao);
+            return JsonConvert.DeserializeObject<UserDTO>(sessao);
         }
 
-        public void CriarSessao(User user)
+        public void CriarSessao(UserDTO user)
         {
             //convertendo pra json
             string userConvertido = JsonConvert.SerializeObject(user);
